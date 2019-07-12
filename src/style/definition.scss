@@ -8,8 +8,9 @@ $colors: (
   primaryDark: #f2e205,
   darkCol: #262626
 );
-$mobile: 650px;
+$mobile: 677px;
 $tablet: 960px;
+$desktop: 1100px;
 
 @function color($color-name) {
   @return map-get($colors, $color-name);
@@ -22,6 +23,12 @@ $tablet: 960px;
 
 @mixin mobile {
   @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: $desktop) {
     @content;
   }
 }

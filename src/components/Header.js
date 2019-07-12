@@ -1,22 +1,31 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import NavLinks from "./NavLinks";
 
 export class Header extends Component {
   state = {
     sideMenuShown: false,
     scrolling: false
   };
+
   componentDidMount() {
-    window.addEventListener("scroll", () => {
-      if (window.pageYOffset > 20 && !this.state.scrolling)
-        this.setState({ scrolling: true });
-      else if (this.state.scrolling && window.pageYOffset < 20)
-        this.setState({ scrolling: false });
-    });
+    window.addEventListener("scroll", this.handleScroll);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
   handleMenuShown = () => {
     this.setState(prevState => ({ sideMenuShown: !prevState.sideMenuShown }));
   };
+
+  handleScroll = () => {
+    if (window.pageYOffset > 20 && !this.state.scrolling)
+      this.setState({ scrolling: true });
+    else if (this.state.scrolling && window.pageYOffset < 20)
+      this.setState({ scrolling: false });
+  };
+
   render() {
     return (
       <header
@@ -44,24 +53,10 @@ export class Header extends Component {
         <div
           className="header-categories"
           style={
-            this.state.scrolling ? { lineHeight: "2rem", height: "2rem" } : null
+            this.state.scrolling ? { height: "2rem", lineHeight: "2rem" } : null
           }
         >
-          <NavLink to={"/news"}>
-            <p>News</p>
-          </NavLink>
-          <NavLink to={"/world"}>
-            <p>World</p>
-          </NavLink>
-          <NavLink to={"/europe"}>
-            <p>Europe</p>
-          </NavLink>
-          <NavLink to={"/sport"}>
-            <p>Sport</p>
-          </NavLink>
-          <NavLink to={"/entertainment"}>
-            <p>Entertainment</p>
-          </NavLink>
+          <NavLinks />
         </div>
         <div
           className={this.state.sideMenuShown ? "menulines shown" : "menulines"}
@@ -77,21 +72,7 @@ export class Header extends Component {
           <div className="line" />
         </div>
         <div className={this.state.sideMenuShown ? "menu shown" : "menu"}>
-          <NavLink to={"/news"}>
-            <p>News</p>
-          </NavLink>
-          <NavLink to={"/world"}>
-            <p>World</p>
-          </NavLink>
-          <NavLink to={"/europe"}>
-            <p>Europe</p>
-          </NavLink>
-          <NavLink to={"/sport"}>
-            <p>Sport</p>
-          </NavLink>
-          <NavLink to={"/entertainment"}>
-            <p>Entertainment</p>
-          </NavLink>
+          <NavLinks />
         </div>
       </header>
     );

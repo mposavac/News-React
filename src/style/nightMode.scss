@@ -1,0 +1,113 @@
+header.night {
+  background: color(darkCol);
+  box-shadow: 0 4px 12px 0 rgba(255, 255, 255, 0.05);
+  .header-logo {
+    border-color: color(primaryDark);
+    &::after,
+    &::before {
+      background: color(primaryDark);
+    }
+    .header-logo-txt {
+      color: color(primaryDark);
+    }
+  }
+  .header-categories {
+    .active {
+      border-left: 2px color(primaryDark) solid;
+    }
+  }
+  .menulines {
+    .line {
+      background: color(primaryDark);
+    }
+  }
+  .menu {
+    background: color(darkCol);
+    p {
+      color: color(primaryDark);
+      &:hover {
+        border-left: 2px color(primaryDark) solid;
+      }
+    }
+  }
+
+  p {
+    color: color(primaryDark);
+  }
+}
+
+main.night {
+  background: color(darkCol);
+  .main {
+    .topnews {
+      .categoryTitle {
+        color: color(primaryDark);
+      }
+      .topnews-slider {
+        border: 2px color(primaryDark) solid;
+        .arrow {
+          color: color(primaryDark);
+        }
+      }
+    }
+
+    .news-list {
+      .list-component {
+        border: 1px color(primaryDark) solid;
+
+        .textHolder-list {
+          color: color(whiteCol);
+          .title-list {
+            @include tablet {
+              background: rgba(0, 0, 0, 0.7);
+            }
+          }
+          .author-list {
+            @include tablet {
+              background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.7),
+                transparent
+              );
+            }
+          }
+          .source-list,
+          .author-list {
+            color: color(primaryDark);
+          }
+          .description-list {
+            @include tablet {
+              background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.7),
+                transparent
+              );
+            }
+          }
+        }
+        .fa-trash-alt {
+          color: color(primaryDark);
+        }
+      }
+    }
+    .eye {
+      color: color(primaryDark);
+    }
+  }
+}
+
+footer.night {
+  background: color(darkCol);
+  box-shadow: 4px 0 12px 0 rgba(255, 255, 255, 0.05);
+  .social-networks i {
+    &:hover {
+      color: color(primaryDark);
+    }
+  }
+  .categories .active {
+    border-bottom: 1px color(primaryDark) solid;
+  }
+  .footer-text {
+    color: color(primaryDark);
+  }
+}

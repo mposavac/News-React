@@ -27,7 +27,6 @@ export class Home extends Component {
         isLoading: true
       });
       this.fetchData(nextProps.match.params.category);
-      console.log("UPDATED");
     }
     console.log("WILLUPDATE");
   }
@@ -52,7 +51,6 @@ export class Home extends Component {
         .then(res => res.json())
         .then(data => {
           this.setState({ news: data.articles });
-          console.log("Wrold,eruope");
           this.setState({ isLoading: false });
         });
     } else if (category === "sport") {
@@ -62,7 +60,6 @@ export class Home extends Component {
         .then(res => res.json())
         .then(data => {
           this.setState({ news: data.articles });
-          console.log("sport");
           this.setState({ isLoading: false });
         })
         .then();
@@ -73,7 +70,6 @@ export class Home extends Component {
         .then(res => res.json())
         .then(data => {
           this.setState({ news: data.articles });
-          console.log("entertainment");
           this.setState({ isLoading: false });
         });
     } else {
@@ -83,7 +79,6 @@ export class Home extends Component {
         .then(res => res.json())
         .then(data => {
           this.setState({ news: data.articles });
-          console.log("news");
           this.setState({ isLoading: false });
         });
     }

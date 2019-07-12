@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css?family=EB+Garamond&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400i&display=swap");
+@import "./animation.scss";
+$colors: (
+  primaryCol: #f25050,
+  secondaryCol: #1e2d59,
+  whiteCol: white,
+  primaryDark: #f2e205,
+  darkCol: #262626
+);
+$mobile: 650px;
+$tablet: 960px;
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+@mixin tablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}

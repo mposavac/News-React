@@ -5,7 +5,7 @@ import { Route, HashRouter } from "react-router-dom";
 
 ReactDOM.render(
   <HashRouter>
-    <Route path={"/:category?"} component={Home} />
+    <Route path={"/:language?/:category?"} component={Home} />
   </HashRouter>,
   document.getElementById("root")
 );

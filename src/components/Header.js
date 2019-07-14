@@ -53,10 +53,19 @@ export class Header extends Component {
         <div
           className="header-categories"
           style={
-            this.state.scrolling ? { height: "2rem", lineHeight: "2rem" } : null
+            this.state.scrolling
+              ? {
+                  transform: "translate(11rem,-1.5rem)"
+                }
+              : null
           }
         >
-          <NavLinks />
+          <NavLinks
+            language={this.props.language}
+            languageIndicator={this.props.languageIndicator}
+            category={this.props.category}
+            scrolling={this.state.scrolling}
+          />
         </div>
         <div
           className={this.state.sideMenuShown ? "menulines shown" : "menulines"}
@@ -72,7 +81,10 @@ export class Header extends Component {
           <div className="line" />
         </div>
         <div className={this.state.sideMenuShown ? "menu shown" : "menu"}>
-          <NavLinks />
+          <NavLinks
+            language={this.props.language}
+            languageIndicator={this.props.languageIndicator}
+          />
         </div>
       </header>
     );

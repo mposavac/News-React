@@ -100,18 +100,21 @@ main {
           transition: 0.5s;
 
           .slide {
-            height: 100%;
+            position: relative;
+            height: 451px;
             flex: 1;
             min-width: 100%;
+            @include mobile {
+              height: 250px;
+            }
 
             img {
-              max-width: 100%;
-              max-height: 100%;
-              width: 801px;
-              height: 451px;
-              @include mobile {
-                height: 250px;
-              }
+              max-width: 120%;
+              max-height: 140%;
+              width: auto;
+              height: auto;
+              min-height: 100%;
+              min-width: 100%;
             }
 
             .slide-text {
@@ -274,10 +277,12 @@ main {
           width: 255px;
           @include tablet {
             float: unset;
-            width: 100%;
+            width: auto;
+            min-width: 100%;
+            max-width: 140%;
             height: auto;
             min-height: 100%;
-            max-height: 250%;
+            max-height: 200%;
           }
         }
 

@@ -6,11 +6,16 @@ import NewsList from "./List/NewsList";
 
 import Loading from "./Loading";
 
+import lang from "../language.json";
+
 import "../style/style.scss";
 
 export class Home extends Component {
   state = {
     news: undefined,
+    languageIndicator: this.props.match.params.language
+      ? this.props.match.params.language
+      : "us",
     category: this.props.match.params.category,
     isLoading: true,
     nightMode: false
@@ -21,14 +26,18 @@ export class Home extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.category !== nextProps.match.params.category) {
+    if (
+      nextState.category !== nextProps.match.params.category ||
+      nextState.languageIndicator !== nextProps.match.params.language
+    ) {
       this.setState({
         category: this.props.match.params.category,
+        languageIndicator: this.props.match.params.language,
         isLoading: true
       });
       this.fetchData(nextProps.match.params.category);
     }
-    console.log("WILLUPDATE");
+    console.log("componentWillUpdate");
   }
 
   handleNightMode = () => {
@@ -42,6 +51,9 @@ export class Home extends Component {
   };
 
   fetchData(category) {
+    let language = this.props.match.params.language
+      ? this.props.match.params.language
+      : "us";
     if (category === "world" || category === "europe") {
       fetch(
         "https://newsapi.org/v2/everything?q=" +
@@ -55,7 +67,7 @@ export class Home extends Component {
         });
     } else if (category === "sport") {
       fetch(
-        "https://newsapi.org/v2/top-headlines?category=sports&country=us&apiKey=07193cc5318e44069f2b13491af7edc5"
+        `https://newsapi.org/v2/top-headlines?category=sports&country=${language}&apiKey=07193cc5318e44069f2b13491af7edc5`
       )
         .then(res => res.json())
         .then(data => {
@@ -65,7 +77,7 @@ export class Home extends Component {
         .then();
     } else if (category === "entertainment") {
       fetch(
-        "https://newsapi.org/v2/top-headlines?category=entertainment&country=us&apiKey=07193cc5318e44069f2b13491af7edc5"
+        `https://newsapi.org/v2/top-headlines?category=entertainment&country=${language}&apiKey=07193cc5318e44069f2b13491af7edc5`
       )
         .then(res => res.json())
         .then(data => {
@@ -74,7 +86,7 @@ export class Home extends Component {
         });
     } else {
       fetch(
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=07193cc5318e44069f2b13491af7edc5"
+        `https://newsapi.org/v2/top-headlines?country=${language}&apiKey=07193cc5318e44069f2b13491af7edc5`
       )
         .then(res => res.json())
         .then(data => {
@@ -94,12 +106,16 @@ export class Home extends Component {
             <Header
               night={this.state.nightMode}
               handleNightMode={this.handleNightMode}
+              language={lang}
+              category={this.state.category}
+              languageIndicator={this.state.languageIndicator}
             />
             <main className={this.state.nightMode ? "night" : ""}>
               {this.state.news !== undefined && (
                 <div className="main">
                   <TopNews
                     category={this.state.category}
+                    languageIndicator={this.state.languageIndicator}
                     news={this.state.news}
                   />
                   <NewsList
@@ -109,7 +125,11 @@ export class Home extends Component {
                 </div>
               )}
             </main>
-            <Footer night={this.state.nightMode} />
+            <Footer
+              night={this.state.nightMode}
+              language={lang}
+              languageIndicator={this.state.languageIndicator}
+            />
           </React.Fragment>
         )}
       </React.Fragment>

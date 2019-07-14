@@ -5,22 +5,25 @@ import TwoTopNews from "./TwoTopNews";
 export default function TopNews(props) {
   return (
     <div className="topnews">
-      <div className="categoryTitle">{checkCategory(props.category)}</div>
+      <div className="categoryTitle">
+        {checkCategory(props.category, props.languageIndicator)}
+      </div>
       <TopNewsSlider news={props.news} />
       <TwoTopNews news={props.news} />
     </div>
   );
 }
 
-function checkCategory(category) {
-  switch (category) {
-    case "news":
-      return "topNEWS";
-    case undefined:
-      return "topNEWS";
-    case "entertainment":
-      return "entertainment";
-    default:
-      return category + "NEWS";
+function checkCategory(category, language) {
+  if (language === "us") {
+    if (category === "news" || !category) return "topNEWS";
+    else if (category === "entertainment") return "entertainment";
+    else return category + "NEWS";
+  } else if (language === "fr") {
+    return "Nouvelles";
+  } else if (language === "de") {
+    return "Nachrichten";
+  } else if (language === "cn") {
+    return "新闻";
   }
 }

@@ -1,0 +1,30 @@
+[
+  {
+    "language": "English",
+    "original": "English",
+    "flag": "https://www.countryflags.io/gb/flat/64.png",
+    "shorten": "us",
+    "navigation": ["News", "World", "Europe", "Sport", "Entertainment"]
+  },
+  {
+    "language": "French",
+    "original": "Français",
+    "flag": "https://www.countryflags.io/fr/flat/64.png",
+    "shorten": "fr",
+    "navigation": ["Nouvelles", "Monde", "L'Europe ", "Sport", "Divertissement"]
+  },
+  {
+    "language": "German",
+    "original": "Deutsche ",
+    "flag": "https://www.countryflags.io/de/flat/64.png",
+    "shorten": "de",
+    "navigation": ["Nachrichten", "Welt", "Europa", "Sport", "Unterhaltung"]
+  },
+  {
+    "language": "Chinese",
+    "original": "中国",
+    "flag": "https://www.countryflags.io/cn/flat/64.png",
+    "shorten": "cn",
+    "navigation": ["新闻", "世界", "欧洲", "运动", "娱乐"]
+  }
+]

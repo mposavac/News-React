@@ -35,7 +35,10 @@ export default function Footer(props) {
           </div>
         </div>
         <div className="categories">
-          <NavLinks />
+          <NavLinks
+            language={props.language}
+            languageIndicator={props.languageIndicator}
+          />
         </div>
       </div>
       <h4 className="footer-text">

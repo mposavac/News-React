@@ -15,6 +15,12 @@ header.night {
     .active {
       border-left: 2px color(primaryDark) solid;
     }
+    .language-selection {
+      background: color(darkCol);
+      a.language-component p.original-language {
+        color: color(whiteCol);
+      }
+    }
   }
   .menulines {
     .line {

@@ -64,11 +64,11 @@ header {
         }
       }
     }
-  }
-  .menu.shown {
-    transform: translateY(0);
-    height: 46vh;
-    min-height: 254px;
+    &.shown {
+      transform: translateY(0);
+      height: 46vh;
+      min-height: 254px;
+    }
   }
   .header-logo {
     z-index: 100;
@@ -103,10 +103,26 @@ header {
       animation-delay: 3s;
     }
     .header-logo-txt {
+      position: relative;
       font-family: "Playfair Display", serif !important;
       line-height: 4rem;
       transition: 0.3s;
       color: color(primaryCol);
+      &::before {
+        text-align: center;
+        content: "Click for Night Mode";
+        position: absolute;
+        height: 4rem;
+        width: 12rem;
+        bottom: 1px;
+        left: -255px;
+        line-height: 4rem;
+        font-size: 1rem;
+        transition: 0.3s;
+        background: color(whiteCol);
+        animation: clickForNightMode 6s ease-in-out;
+        border-radius: 10px;
+      }
     }
   }
   .header-categories {

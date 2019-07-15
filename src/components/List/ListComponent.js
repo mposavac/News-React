@@ -41,9 +41,11 @@ export class ListComponent extends Component {
     } = this.props.news;
     return (
       <div className="list-component" style={this.checkStyle()}>
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          <img src={urlToImage} alt="NoImg" />
-        </a>
+        <div className="imgWrapper">
+          <a href={url} target="_blank" rel="noopener noreferrer">
+            <img src={urlToImage} alt="NoImg" />
+          </a>
+        </div>
         <div className="textHolder-list ">
           <h4 className="title-list">{title}</h4>
           <h5 className="author-list">{author}</h5>

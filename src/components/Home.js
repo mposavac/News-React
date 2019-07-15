@@ -1,134 +1,85 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import Header from "./Header.js";
 import Footer from "./Footer.js";
 import TopNews from "./TopNews/TopNews";
 import NewsList from "./List/NewsList";
-
 import Loading from "./Loading";
 
+import { fetchNews } from "../store/actions/fetchNews";
 import lang from "../language.json";
 
 import "../style/style.scss";
 
 export class Home extends Component {
-  state = {
-    news: undefined,
-    languageIndicator: this.props.match.params.language
-      ? this.props.match.params.language
-      : "us",
-    category: this.props.match.params.category,
-    isLoading: true,
-    nightMode: false
-  };
-
   componentDidMount() {
-    this.fetchData(this.state.category);
+    this.props.fetchNews(this.props.match.params.category, "us");
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (
-      nextState.category !== nextProps.match.params.category ||
-      nextState.languageIndicator !== nextProps.match.params.language
-    ) {
-      this.setState({
-        category: this.props.match.params.category,
-        languageIndicator: this.props.match.params.language,
-        isLoading: true
-      });
-      this.fetchData(nextProps.match.params.category);
+  componentDidUpdate() {
+    let { category, language } = this.props.match.params;
+    if (!category) category = "news";
+    if (!language) language = "us";
+    if (this.props.state.news) {
+      if (this.props.state.category !== category) {
+        this.props.changeCategory(category);
+        this.props.fetchNews(category, language);
+      }
+      if (this.props.state.languageIndicator !== language) {
+        this.props.changeLanguage(language);
+        this.props.fetchNews(category, language);
+      }
     }
-    console.log("componentWillUpdate");
+    console.log("componentDidUpdate");
   }
 
   handleNightMode = () => {
-    const prevstate = this.state.nightMode;
-    this.setState({ nightMode: !prevstate });
+    this.props.nightMode();
   };
 
   handleRemove = index => {
-    const newNews = this.state.news.filter((element, i) => i !== index);
-    this.setState({ news: newNews });
+    const newNews = this.props.state.news.filter((element, i) => i !== index);
+    this.props.removeNews(newNews);
   };
 
-  fetchData(category) {
-    let language = this.props.match.params.language
-      ? this.props.match.params.language
-      : "us";
-    if (category === "world" || category === "europe") {
-      fetch(
-        "https://newsapi.org/v2/everything?q=" +
-          category +
-          "&apiKey=07193cc5318e44069f2b13491af7edc5"
-      )
-        .then(res => res.json())
-        .then(data => {
-          this.setState({ news: data.articles });
-          this.setState({ isLoading: false });
-        });
-    } else if (category === "sport") {
-      fetch(
-        `https://newsapi.org/v2/top-headlines?category=sports&country=${language}&apiKey=07193cc5318e44069f2b13491af7edc5`
-      )
-        .then(res => res.json())
-        .then(data => {
-          this.setState({ news: data.articles });
-          this.setState({ isLoading: false });
-        })
-        .then();
-    } else if (category === "entertainment") {
-      fetch(
-        `https://newsapi.org/v2/top-headlines?category=entertainment&country=${language}&apiKey=07193cc5318e44069f2b13491af7edc5`
-      )
-        .then(res => res.json())
-        .then(data => {
-          this.setState({ news: data.articles });
-          this.setState({ isLoading: false });
-        });
-    } else {
-      fetch(
-        `https://newsapi.org/v2/top-headlines?country=${language}&apiKey=07193cc5318e44069f2b13491af7edc5`
-      )
-        .then(res => res.json())
-        .then(data => {
-          this.setState({ news: data.articles });
-          this.setState({ isLoading: false });
-        });
-    }
-  }
-
   render() {
+    const {
+      news,
+      isLoading,
+      nightMode,
+      languageIndicator,
+      category
+    } = this.props.state;
     return (
       <React.Fragment>
-        {this.state.isLoading ? (
-          <Loading isLoading={this.state.isLoading} />
+        {isLoading ? (
+          <Loading isLoading={isLoading} />
         ) : (
           <React.Fragment>
             <Header
-              night={this.state.nightMode}
+              night={nightMode}
               handleNightMode={this.handleNightMode}
               language={lang}
-              category={this.state.category}
-              languageIndicator={this.state.languageIndicator}
+              category={category}
+              languageIndicator={languageIndicator}
             />
-            <main className={this.state.nightMode ? "night" : ""}>
-              {this.state.news !== undefined && (
+            <main className={nightMode ? "night" : ""}>
+              {news !== undefined && (
                 <div className="main">
                   <TopNews
-                    category={this.state.category}
-                    languageIndicator={this.state.languageIndicator}
-                    news={this.state.news}
+                    category={category}
+                    languageIndicator={languageIndicator}
+                    news={news}
                   />
-                  <NewsList
-                    news={this.state.news}
-                    handleRemove={this.handleRemove}
-                  />
+                  <NewsList news={news} handleRemove={this.handleRemove} />
                 </div>
               )}
             </main>
             <Footer
-              night={this.state.nightMode}
+              night={nightMode}
               language={lang}
-              languageIndicator={this.state.languageIndicator}
+              languageIndicator={languageIndicator}
             />
           </React.Fragment>
         )}
@@ -136,5 +87,24 @@ export class Home extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  console.log("%cNews STATE", "color: red", state);
+  return { state: state };
+};
 
-export default Home;
+const mapStatetoDispatch = dispatch => {
+  return {
+    fetchNews: (category, language) => dispatch(fetchNews(category, language)),
+    removeNews: newNews => dispatch({ type: "REMOVE_NEWS", data: newNews }),
+    nightMode: () => dispatch({ type: "NIGHT_MODE" }),
+    changeCategory: category =>
+      dispatch({ type: "CATEGORY_CHANGE", data: category }),
+    changeLanguage: language =>
+      dispatch({ type: "LANGUAGE_CHANGE", data: language })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapStatetoDispatch
+)(Home);

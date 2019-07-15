@@ -9,6 +9,9 @@ header.night {
     }
     .header-logo-txt {
       color: color(primaryDark);
+      &::before {
+        background: color(darkCol);
+      }
     }
   }
   .header-categories {

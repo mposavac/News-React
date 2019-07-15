@@ -85,3 +85,49 @@
     right: 48%;
   }
 }
+@keyframes clickForNightMode {
+  0% {
+    left: -255px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  25% {
+    left: -10px;
+  }
+  48% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+  52% {
+    transform: rotate(10deg);
+  }
+  54% {
+    transform: rotate(-10deg);
+  }
+  56% {
+    transform: rotate(10deg);
+  }
+  58% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(10deg);
+  }
+  62% {
+    transform: rotate(0);
+  }
+  75% {
+    left: -10px;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: -255px;
+    opacity: 0;
+  }
+}

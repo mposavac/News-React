@@ -57,13 +57,7 @@ export class Home extends Component {
           <Loading isLoading={isLoading} />
         ) : (
           <React.Fragment>
-            <Header
-              night={nightMode}
-              handleNightMode={this.handleNightMode}
-              language={lang}
-              category={category}
-              languageIndicator={languageIndicator}
-            />
+            <Header handleNightMode={this.handleNightMode} language={lang} />
             <main className={nightMode ? "night" : ""}>
               {news !== undefined && (
                 <div className="main">
@@ -77,8 +71,8 @@ export class Home extends Component {
               )}
             </main>
             <Footer
-              night={nightMode}
               language={lang}
+              night={nightMode}
               languageIndicator={languageIndicator}
             />
           </React.Fragment>

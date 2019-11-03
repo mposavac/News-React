@@ -7,3 +7,4 @@ export default function Loading(props) {
     </div>
   );
 }
+/*<i className="far fa-newspaper" />*/

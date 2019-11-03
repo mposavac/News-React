@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import NavLinks from "./NavLinks";
 
 export class Header extends Component {
@@ -27,9 +28,10 @@ export class Header extends Component {
   };
 
   render() {
+    const { nightMode, languageIndicator, category } = this.props.state;
     return (
       <header
-        className={this.props.night ? "night" : ""}
+        className={nightMode ? "night" : ""}
         style={this.state.scrolling ? { height: "2rem", color: "#fff" } : null}
       >
         <div
@@ -62,8 +64,8 @@ export class Header extends Component {
         >
           <NavLinks
             language={this.props.language}
-            languageIndicator={this.props.languageIndicator}
-            category={this.props.category}
+            languageIndicator={languageIndicator}
+            category={category}
             scrolling={this.state.scrolling}
           />
         </div>
@@ -83,7 +85,7 @@ export class Header extends Component {
         <div className={this.state.sideMenuShown ? "menu shown" : "menu"}>
           <NavLinks
             language={this.props.language}
-            languageIndicator={this.props.languageIndicator}
+            languageIndicator={languageIndicator}
           />
         </div>
       </header>
@@ -91,4 +93,9 @@ export class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    state: state
+  };
+};
+export default connect(mapStateToProps)(Header);
